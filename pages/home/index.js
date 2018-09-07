@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 const {
   user,
-  request
+  post
 } = require('../../utils/index.js')
 
 var solarPeriodText = '禾乃登';
@@ -23,6 +23,7 @@ exports.default = Page({
     lunarDate: lunarDateText,
     suitFor: suitForText,
     unsuitFor: unsuitForText,
+    hasUserInfo: false
   },
   /** note: 在 wxp 文件或者页面文件中请去掉 methods 包装 */
   methods: {
@@ -48,12 +49,17 @@ exports.default = Page({
     }
   },
   onLoad: function() {
-    user.load()
+    user.load(this.viewComments, true)
   },
   getUserInfo: user.getUserInfo,
-  navComments: function() {
+  viewComments: function() {
     wx.navigateTo({
       url: '../comments/index',
     })
+    // post('https://contest.lujs.cn/bs-opcam/home/getCommentsByCode', {
+    //   calendarId: '20180907',
+    //   pageSize: 10,
+    //   currentPage: 1
+    // }).then(r => console.log(r))
   }
 });

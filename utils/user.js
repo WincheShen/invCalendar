@@ -27,8 +27,12 @@ user.fromSetting = function() {
 var store = {},
   loadFnKey = 'loaded'
 
-user.load = function(loaded) {
+user.load = function(loaded, registerOnly) {
   loaded && !store[loadFnKey] && (store[loadFnKey] = loaded)
+  if (registerOnly) {
+    return;
+  }
+  
   if (user.hasUserInfo) {
     loaded && loaded(user.info)
   } else if (!user.hasUserInfo) {
