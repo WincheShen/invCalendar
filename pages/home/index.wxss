@@ -1,15 +1,51 @@
+.homeBasic{
+  background-color: rgb(236, 230, 230);
+  width:100%;
+  height: 100%;
+}
+
 .homePanel{
   width:100%;
-  height:60%;
+  /* height:%; */
+  background-color: rgb(236, 230, 230);
+  padding-top:50rpx;
 }
-  .content {
-    padding: 30rpx;
-    width:90%;
+.content {
+    margin: auto;
+    padding-top:100rpx;
+    padding-left:50rpx;
+    padding-right:50rpx;
+    border:1rpx;
+    width:80%;
     height:400rpx;
+    background:#FFFFFF;
+}
+  .section{
+    width:100%;
+    height:200rpx;
+}
+  .flex-wrp{
+    display: flex;
+    width:100%;
+    height:100%;
   }
-  .demo {
-    display: block;
-    width: 100%;
-    height: 800rpx;
-    background: #f2f2f2;
+  .flex-left-item{
+    padding-top:40rpx;
+    padding-left:40rpx;
+    width:45%;
+    height:100%;
+  }
+  .flex-item{
+    padding-top:40rpx;
+    width:43%;
+    height:100%;
+  }
+  .flex-right-item{
+    padding-top:40rpx;
+    width:40px;
+    height:100%;
+  }
+
+  .bc_red{
+    color:red;
   }
