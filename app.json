@@ -1,7 +1,7 @@
 {
   "pages": [
     "pages/home/index",
-    "pages/commentArea/index",
+    "pages/comments/index",
     "pages/favorite/index",
     "pages/forecastProd/index"
   ],
@@ -10,7 +10,8 @@
     "backgroundColor": "#efefef",
     "navigationBarBackgroundColor": "#ffffff",
     "navigationBarTitleText": "投资皇历",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true
   },
   "networkTimeout": {
     "request": 10000

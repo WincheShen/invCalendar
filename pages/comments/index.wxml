@@ -1,0 +1,50 @@
+<view class="comment_list_box">
+  <view wx:if="{{comment_data.length > 0}}">
+
+    <view class="comment_list" wx:for="{{comment_data}}" wx:key="{{item.id}}">
+      <button class="avatar_button" open-type="getUserInfo" lang="zh_CN" data-user_id='{{item.userId}}'>
+        <view class="comment_avatar">
+          <image src="{{item.avatarUrl}}" />
+        </view>
+      </button>
+      <!-- 评论昵称/日期/内容/赞-->
+      <view class="comment_total_box">
+        <!-- 父评论 -->
+        <view class="comment_content_box">
+
+          <view class="comment_meta">
+            <view class="comment_nickname">
+              <text>{{item.showNickName}}</text>
+              <view class="commnet_date">
+                <text>{{item.time}}</text>
+              </view>
+            </view>
+
+            <!-- <block wx:if='{{item.zanCurrent}}'>
+              <view class="comment_zan" bindtap='zanCommentClick' data-comment_id='{{item.id}}' data-user_id='{{item.userId}}' data-zan_id='{{item.zanId}}' data-is_sub_comment='false' data-p_index="{{item.p_index}}">
+                <image src="./images/zan_self.png"></image>
+                <text class="comment_zan_num" wx:if="{{item.zanNum > 0}}">{{item.zanNum}}</text>
+              </view>
+            </block>
+            <block wx:else>
+              <view class="comment_zan" bindtap='zanCommentClick' data-comment_id='{{item.id}}' data-user_id='{{item.userId}}' data-zan_id='{{item.zanId}}' data-is_sub_comment='false' data-p_index="{{item.p_index}}">
+                <image src="./images/zan.png"></image>
+                <text class="comment_zan_num" wx:if="{{item.zanNum > 0}}">{{item.zanNum}}</text>
+              </view>
+            </block> -->
+
+          </view>
+
+          <view class="comment_content" data-comment_id='{{item.id}}' data-user_id='{{item.userId}}' data-zan_id='{{item.zanId}}' data-p_comment_id='{{item.p_id}}' data-nickname="{{item.nickName}}" data-p_index="{{item.p_index}}">{{item.content}}</view>
+        </view>
+      </view>
+
+    </view>
+
+  </view>
+  <view wx:else>
+    <view class="no_comment">
+      <text>还没有人评论哦^_^</text>
+    </view>
+  </view>
+</view>
