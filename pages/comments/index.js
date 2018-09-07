@@ -1,15 +1,8 @@
-// components/comment/index.js
-Component({
-  /**
-   * Component properties
-   */
-  properties: {
-    url: String
-  },
+const {
+  post
+} = require('../../utils/index.js')
 
-  /**
-   * Component initial data
-   */
+Page({
   data: {
     comment_data: [{
       id: 1,
@@ -34,11 +27,11 @@ Component({
       content: '这是一个测试评论~~'
     }]
   },
-
-  /**
-   * Component methods
-   */
-  methods: {
-
+  onLoad: function() {
+    post('https://contest.lujs.cn/bs-opcam/home/getCommentsByCode', {
+      calendarId: '20180907',
+      pageSize: 10,
+      currentPage: 1
+    }).then(r => console.log(r))
   }
 })
