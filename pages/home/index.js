@@ -7,7 +7,7 @@ Object.defineProperty(exports, "__esModule", {
 
 const {
   user,
-  request
+  post
 } = require('../../utils/index.js')
 
 var util = require('../../utils/utils.js');
@@ -51,10 +51,15 @@ exports.default = Page({
     }
   },
   getUserInfo: user.getUserInfo,
-  navComments: function() {
+  viewComments: function() {
     wx.navigateTo({
       url: '../comments/index',
     })
+    // post('https://contest.lujs.cn/bs-opcam/home/getCommentsByCode', {
+    //   calendarId: '20180907',
+    //   pageSize: 10,
+    //   currentPage: 1
+    // }).then(r => console.log(r))
   }
   ,
   //滑动移动事件
