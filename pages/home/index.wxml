@@ -1,31 +1,37 @@
 <view class="homeBasic">
-<view class="section">
-  <view class="flex-wrp" style="flex-direction:row;">
-    <view class="flex-left-item">
-      <view class="flex-sub-item" style="font-size:24px">
-        {{solarPeriod}}
+  <view class="section">
+    <view class="flex-wrp" style="flex-direction:row;">
+
+      <view class="flex-left-item">
+        <view class="flex-sub-item" style="font-size:24px">
+          {{solarPeriod}}
+        </view>
+        <view class="flex-sub-item">
+          {{lunarDate}}
+        </view>
       </view>
-      <view class="flex-sub-item">
-        {{lunarDate}}
+      <view class="flex-item bc_red">
+        <view class="flex-sub-item">
+          宜：{{suitFor}}
+        </view>
+        <view class="flex-sub-item">
+          忌：{{unsuitFor}}
+        </view>
       </view>
-    </view>
-    <view class="flex-item bc_red">
-    <view class="flex-sub-item">
-        宜：{{suitFor}}
+
+      <view class="flex-right-item" style="font-size:20px;">
+        <text>9月</text>
+        <text>1日</text>
       </view>
-      <view class="flex-sub-item">
-        忌：{{unsuitFor}}
-      </view>
-    </view>
-    <view class="flex-right-item" style="font-size:24px;">
-      9月1日
+
     </view>
   </view>
-</view>
-        <view border="{{true}}" class="homePanel">
-            <view class="content" style="white-space:pre-wrap">    世人投资，第一要有度，第二要有心，第三要有恒。有度，方能知进退；有心，能辨利与害；有恒，则积长久之财。
-            \n
-陆金所：投资谏言</view>
-        </view>
+  <view border="{{true}}" class="homePanel">
+    <view class="content" bindtap='navComments' style="white-space:pre-wrap"> 世人投资，第一要有度，第二要有心，第三要有恒。有度，方能知进退；有心，能辨利与害；有恒，则积长久之财。 \n 陆金所：投资谏言
+    </view>
+    <view wx:if="{{!user.hasUserInfo}}">
+      <button sopen-type="getUserInfo" bindgetuserinfo="getUserInfo"> 议政 </button>
+    </view>
+  </view>
 
 </view>

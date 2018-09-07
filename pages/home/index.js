@@ -3,10 +3,17 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+const {
+  user,
+  request
+} = require('../../utils/index.js')
+
 var solarPeriodText = '禾乃登';
 var lunarDateText = '瓜时 七月廿二';
-var suitForText="买菜";
-var unsuitForText="理财";
+var suitForText = "买菜";
+var unsuitForText = "理财";
+
 exports.default = Page({
   data: {
     '__code__': {
@@ -14,8 +21,8 @@ exports.default = Page({
     },
     solarPeriod: solarPeriodText,
     lunarDate: lunarDateText,
-    suitFor:suitForText,
-    unsuitFor:unsuitForText
+    suitFor: suitForText,
+    unsuitFor: unsuitForText,
   },
   /** note: 在 wxp 文件或者页面文件中请去掉 methods 包装 */
   methods: {
@@ -39,5 +46,14 @@ exports.default = Page({
         });
       }
     }
+  },
+  onLoad: function() {
+    user.load()
+  },
+  getUserInfo: user.getUserInfo,
+  navComments: function() {
+    wx.navigateTo({
+      url: '../comments/index',
+    })
   }
 });
