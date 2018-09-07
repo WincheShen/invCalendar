@@ -1,0 +1,15 @@
+<view>
+    <layout-head _pid="{{_pid}}"></layout-head>
+
+    <!-- wxp template -->
+    <view class="body-view">
+        <text>{{text}}</text>
+    </view>
+    <wxc-cc class="demo" _pid="{{_pid}}">
+        <wxc-panel border="{{false}}" class="homePanel" _pid="{{_pid}}">
+            <view class="content">世人投资，第一要有度，第二要有心，第三要有恒。有度，方能知进退；有心，能辨利与害；有恒，则积长久之财。陆金所：投资谏言</view>
+        </wxc-panel>
+    </wxc-cc>
+
+    <layout-foot _pid="{{_pid}}"></layout-foot>
+</view>

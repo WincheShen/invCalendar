@@ -1,0 +1,15 @@
+.homePanel{
+  width:100%;
+  height:60%;
+}
+  .content {
+    padding: 30rpx;
+    width:90%;
+    height:400rpx;
+  }
+  .demo {
+    display: block;
+    width: 100%;
+    height: 800rpx;
+    background: #f2f2f2;
+  }
