@@ -1,33 +1,27 @@
-function formatTime(date) {
+function formatDate(date) {
   var year = date.getFullYear()
   var month = date.getMonth() + 1
   var day = date.getDate()
 
-  var hour = date.getHours()
-  var minute = date.getMinutes()
-  var second = date.getSeconds()
-
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+  return year + "-" + month + "-" + day;
 }
 
-function formatMonth(date){
-  var month;
-  if(date===null||date===undefined){
-    month = (new Date()).getMonth() + 1
-  }else{
-     month = date.getMonth() + 1
-  }
-  
-  return month +'月';
+function relativeDate(curDate,days){
+  var preDay_milliseconds = curDate.getTime() + days * 1000 * 60 * 60 * 24;
+
+  var preday = new Date();
+  preday.setTime(preDay_milliseconds);
+  return preday;
 }
-function formatDay(date){
-  var day;
-  if (date === null || date === undefined) {
-    day = (new Date()).getDate()
-  } else {
-    day = date.getDate()
-  }
-  return day+ '日'; 
+
+
+function formatDate2Array(date){
+  var dateArray = [];
+
+  dateArray[0] = date.getFullYear()
+  dateArray[1] = date.getMonth() + 1
+  dateArray[2] = date.getDate()
+  return dateArray;
 }
 
 function formatNumber(n) {
@@ -44,9 +38,9 @@ function daysJia(date) {
 
 
 module.exports = {
-  formatTime: formatTime,
-  formatMonth: formatMonth,
-  formatDay: formatDay,
+  formatDate: formatDate,
+  relativeDate: relativeDate,
   daysJian: daysJian,
-  daysJia: daysJia
+  daysJia: daysJia,
+  formatDate2Array: formatDate2Array
 }
