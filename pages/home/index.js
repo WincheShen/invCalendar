@@ -7,6 +7,7 @@ Object.defineProperty(exports, "__esModule", {
 
 const {
   user,
+<<<<<<< HEAD
   post
 } = require('../../utils/index.js');
 
@@ -21,6 +22,40 @@ exports.default = Page({
     user: null,
     dateArray: null,
     dateList: null,
+=======
+  post,
+  daysJia,
+  daysJian,
+  formatMonth,
+  formatDay
+} = require('../../utils/index.js')
+
+var currentDate = null;
+
+var solarPeriodText = '禾乃登';
+var lunarDateText = '瓜时 七月廿二';
+var suitForText = "买菜";
+var unsuitForText = "理财";
+
+post('https://contest.lujs.cn/bs-opcam/home/getInvestmentInfoByDate', {
+  'date': '20180907',
+  'userId': 'chenyan821'
+}).then(function(res) {
+  console.log(res.data);
+})
+
+exports.default = Page({
+  data: {
+    monthText: formatMonth(currentDate),
+    dayText: formatDay(currentDate),
+    solarPeriod: solarPeriodText,
+    lunarDate: lunarDateText,
+    suitFor: suitForText,
+    unsuitFor: unsuitForText,
+    lastX: 0, //滑动开始x轴位置
+    lastY: 0, //滑动开始y轴位置
+    text: "没有滑动",
+>>>>>>> hook the api for coments
     currentGesture: 0, //标识手势
     currentid: 8,
     likeIcon: "star",
@@ -45,6 +80,7 @@ exports.default = Page({
     }
   },
   onLoad: function() {
+<<<<<<< HEAD
     // this.dataLoad(new Date());
     user.load();
     console.log(user.hasUserInfo)
@@ -52,6 +88,11 @@ exports.default = Page({
     console.log(user.info.nickName)
     if (this.data.dateList === null || this.data.dateList ===undefined)    {
       this.dateSetting(new Date());
+=======
+    user.load(this.viewComments, true);
+    if (currentDate === null || currentDate === undefined) {
+      currentDate = new Date();
+>>>>>>> hook the api for coments
     }
     this.dataLoad(new Date());
     this.setData({
@@ -61,9 +102,10 @@ exports.default = Page({
   getUserInfo: user.getUserInfo,
   viewComments: function() {
     wx.navigateTo({
-      url: '../comments/index',
+      url: '../comments/index?a=1',
     })
   },
+<<<<<<< HEAD
   viewForecast: function () {
     wx.navigateTo({
       url: '../forecastProd/index',
@@ -100,8 +142,34 @@ exports.default = Page({
     for (var i = -7; i < 8; i++) {
       dates[j] = util.relativeDate(curDate, i);
       j++;
+=======
+  //滑动移动事件
+  handletouchmove: function(event) {
+    var currentX = event.touches[0].pageX
+    var currentY = event.touches[0].pageY
+    var tx = currentX - this.data.lastX
+    var ty = currentY - this.data.lastY
+    var text = ""
+    //左右方向滑动
+    if (Math.abs(tx) > Math.abs(ty)) {
+      if (tx < 0) {
+        text = "向左滑动"
+        daysJia(currentDate);
+      } else if (tx > 0) {
+        text = "向右滑动"
+        daysJian(currentDate);
+      }
+    }
+    //上下方向滑动
+    else {
+      if (ty < 0)
+        text = "向上滑动"
+      else if (ty > 0)
+        text = "向下滑动"
+>>>>>>> hook the api for coments
     }
     this.setData({
+<<<<<<< HEAD
       dateList: dates
     })
   },
@@ -130,6 +198,25 @@ exports.default = Page({
         
       }
     );
+=======
+      text: text,
+      monthText: formatMonth(currentDate),
+      dayText: formatDay(currentDate),
+    });
+  },
+
+  //滑动开始事件
+  handletouchtart: function(event) {
+    this.data.lastX = event.touches[0].pageX
+    this.data.lastY = event.touches[0].pageY
+  },
+  //滑动结束事件
+  handletouchend: function(event) {
+    this.data.currentGesture = 0;
+    this.setData({
+      text: "没有滑动",
+    });
+>>>>>>> hook the api for coments
   },
   doCollection: function(){
     var that = this;
