@@ -1,6 +1,7 @@
 {
   "component": true,
   "usingComponents": {
+    "popup": "../../components/popup/index"
   },
   "navigationBarTitleText": "大臣议事区"
 }

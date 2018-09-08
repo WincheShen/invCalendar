@@ -34,10 +34,20 @@
   </view>
 </view>
 
-<view class="title_box">
+<!-- <view class="title_box">
   <view class="title_display">
     <view class="title_text">
       <text>发表评论</text>
     </view>
   </view>
+</view> -->
+
+<view class='flex' wx:if="{{!isShowPop}}">
+  <view class='fix_nav_wp'>
+    <input placeholder="畅所欲言" bindfocus="writeComment"/>
+  </view>
 </view>
+
+<popup isShowPop="{{isShowPop}}">
+  <input placeholder="畅所欲言" />
+</popup>

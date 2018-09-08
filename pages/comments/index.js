@@ -8,7 +8,8 @@ Page({
   data: {
     comment_data: [],
     currentPage: 1,
-    appendComments: false
+    appendComments: false,
+    isShowPop: false
   },
   onLoad() {
     this.init()
@@ -74,5 +75,10 @@ Page({
         }
       }
     }).then(() => wx.stopPullDownRefresh())
+  },
+  writeComment() {
+    this.setData({
+      isShowPop: true
+    })
   }
 })
