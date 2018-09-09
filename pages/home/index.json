@@ -1,8 +1,5 @@
 {
   "usingComponents": {
-    "layout-head": "../../components/layout/head",
-    "layout-foot": "../../components/layout/foot",
-    "wxc-panel": "../../packages/@minui/wxc-panel/dist/index",
-    "wxc-cc": "../../packages/@minui/wxc-cc/dist/index"
+    "wxc-icon": "../../packages/@minui/wxc-icon/dist/index"
   }
 }

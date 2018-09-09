@@ -36,22 +36,55 @@
 .flex-left-item {
   padding-top: 40rpx;
   padding-left: 40rpx;
-  width: 45%;
+  width: 40%;
   height: 100%;
 }
 
 .flex-item {
   padding-top: 40rpx;
-  width: 43%;
+  width: 40%;
   height: 100%;
+}
+.flex-icon-flap {
+  display: flex;
+  width: 100%;
+  height: 50rpx;
+}
+.icon-flap{
+    padding-top: 10rpx;
+    padding-left: 20rpx;
+  width: 20%;
+  height: 50rpx;
 }
 
 .flex-right-item {
   padding-top: 40rpx;
-  width: 40px;
+  width: 80rpx;
   height: 100%;
 }
 
 .bc_red {
   color: red;
+}
+
+.productForecast{
+  padding-top: 70rpx;
+  padding-bottom: 70rpx;
+  padding-left: 40rpx;
+  width: 100%;
+  height: 40rpx;
+  font-size:18px;
+}
+.userinfo {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+  padding-top: 70rpx;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
 }
