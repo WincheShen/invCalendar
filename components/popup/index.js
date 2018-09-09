@@ -22,18 +22,12 @@ Component({
      * 取消事件（调用父组件方法）
      */
     cancel() {
-      this.setData({
-        isShowPop: false
-      })
       this.triggerEvent('cancel')
     },
     /**
      * 确定事件（调用父组件方法）
      */
     confirm() {
-      this.setData({
-        isShowPop: false
-      })
       this.triggerEvent('confirm')
     }
   }

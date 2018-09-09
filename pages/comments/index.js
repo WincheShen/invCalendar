@@ -1,6 +1,7 @@
 const {
   post,
-  user
+  user,
+  apiBase
 } = require('../../utils/index.js')
 const pageSize = 10
 
@@ -9,10 +10,11 @@ Page({
     comment_data: [],
     currentPage: 1,
     appendComments: false,
-    isShowPop: false
+    isShowPop: false,
+    currentDate: ''
   },
-  onLoad() {
-    this.init()
+  onLoad(options) {
+    this.init(options)
     this.loadComments()
   },
   onPullDownRefresh() {
@@ -29,15 +31,21 @@ Page({
     })
     wx.nextTick(this.loadComments)
   },
-  init() {
+  init(opts) {
+    const {
+      y,
+      m,
+      d
+    } = opts
     this.setData({
       omment_data: [],
       currentPage: 1,
+      currentDate: `${y}${m}${d}`
     })
   },
   loadComments() {
-    post('https://contest.lujs.cn/bs-opcam/home/getCommentsByCode', {
-      calendarId: '20180907',
+    post(`${apiBase}/home/getCommentsByCode`, {
+      calendarId: this.data.currentDate,
       pageSize: pageSize,
       currentPage: this.data.currentPage
     }).then(({
@@ -76,9 +84,35 @@ Page({
       }
     }).then(() => wx.stopPullDownRefresh())
   },
-  writeComment() {
+  toggleCommentPopup() {
     this.setData({
-      isShowPop: true
+      isShowPop: !this.data.isShowPop
     })
+  },
+  inputComents(e) {
+    this.setData({
+      comments: e.detail.value
+    })
+  },
+  submitComment() {
+    post(`${apiBase}/interaction/userComment`, {
+        calendarId: this.data.currentDate,
+        comment: this.data.comments,
+        userId: 'chenyan789',
+        userName: user.info.nickName
+      }).then(({
+        success,
+        data
+      }) => {
+        const {
+          msg
+        } = data
+        if (!success) {
+          wx.showToast({
+            title: msg,
+          })
+        }
+      }).then(this.toggleCommentPopup)
+      .then(this.loadComments)
   }
 })

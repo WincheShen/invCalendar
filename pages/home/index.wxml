@@ -1,68 +1,70 @@
 <swiper class='homeBasic' indicator-dots="{{indicator}}" autoplay="{{autoplay}}" bindchange='change' current="{{currentid}}">
-<block wx:for="{{dateList}}">
-  <swiper-item>
-<view class="homeBasic">
-  <view class="section">
-    <view class="flex-wrp" style="flex-direction:row;">
+  <swiper-item wx:for="{{dateList}}" wx:for-index="idx" wx:key="{{idx}}">
+    <view class="homeBasic">
+      <view class="section">
+        <view class="flex-wrp" style="flex-direction:row;">
 
-      <view class="flex-left-item">
-        <view class="flex-sub-item" style="font-size:24px">
-          {{calendarData.lunarIntro}}
-        </view>
-        <view class="flex-sub-item">
-          {{calendarData.lunarDate}}
+          <view class="flex-left-item">
+            <view class="flex-sub-item" style="font-size:24px">
+              {{calendarData.lunarIntro}}
+            </view>
+            <view class="flex-sub-item">
+              {{calendarData.lunarDate}}
+            </view>
+          </view>
+          <view class="flex-item bc_red">
+            <view class="flex-sub-item">
+              宜：{{calendarData.suitFor}}
+            </view>
+            <view class="flex-sub-item">
+              忌：{{calendarData.unsuitFor}}
+            </view>
+          </view>
+
+          <view class="flex-right-item" style="font-size:20px;">
+            <text>{{dateArray[1]}}</text>月
+            <text>{{dateArray[2]}}</text>日
+          </view>
+
         </view>
       </view>
-      <view class="flex-item bc_red">
-        <view class="flex-sub-item">
-          宜：{{calendarData.suitFor}}
+      <view border="{{true}}" class="homePanel">
+        <view class="content" style="white-space:pre-wrap">
+          {{calendarData.detail.intro}}
         </view>
-        <view class="flex-sub-item">
-          忌：{{calendarData.unsuitFor}}
+      </view>
+      <view class="productForecast" bindtap='viewForecast' wx:if="{{calendarData.ready4Sell!==null && calendarData.ready4Sell.length>0}}">
+        上新预告:
+        <text>{{calendarData.ready4Sell[0]}}</text>
+      </view>
+      <view class="flex-icon-flap" style="flex-direction:row;width:100%">
+
+        <view class="icon-flap">
+          <wxc-icon size="60" type="{{calendarData.isLiked?'star-active':'star'}}" color="#fed72a" bindtap='doLike'></wxc-icon>
+          <text>{{calendarData.liked}}</text>
+        </view>
+
+        <view class="icon-flap">
+          <wxc-icon size="60" color="red" type="{{calendarData.isCollected?'heart-active':'heart'}}" bindtap='doCollection'></wxc-icon>
+        </view>
+
+        <view class="icon-flap" bindtap='viewComments'>
+          <wxc-icon size="60" color="#fed72a" type="comment" open-type="getUserInfo" bindgetuserinfo="getUserInfo"></wxc-icon>
+          <text>{{calendarData.commented}}</text>
+        </view>
+        <view class="icon-flap">
+          <wxc-icon size="60" color="#fed72a" type="share"></wxc-icon>
         </view>
       </view>
 
-      <view class="flex-right-item" style="font-size:20px;">
-        <text>{{dateArray[1]}}</text>月
-        <text>{{dateArray[2]}}</text>日
+      <view class="userinfo" style=''>
+        <wxc-icon size="100" color="#fed72a" type="group" wx:if="{{!user.hasUserInfo && user.canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"></wxc-icon>
+        <block wx:else>
+          <image bindtap="viewMyFavorite" class="userinfo-avatar" src="{{user.info.avatarUrl}}" mode="cover"></image>
+        </block>
+
       </view>
-
     </view>
-  </view>
-  <view border="{{true}}" class="homePanel">
-  <view class="content" style="white-space:pre-wrap">
-    {{calendarData.detail.intro}}
-    </view>
-  </view>
-  <view class="productForecast" bindtap='viewForecast' wx:if="{{calendarData.ready4Sell!==null && calendarData.ready4Sell.length>0}}">
-    上新预告:<text>{{calendarData.ready4Sell[0]}}</text>
-  </view>
-  <view class="flex-icon-flap" style="flex-direction:row;width:100%">
-    <view class="icon-flap">
-      <wxc-icon size="60" type="{{calendarData.isLiked?'star-active':'star'}}" color="#fed72a" bindtap='doLike'></wxc-icon>
-      <text>{{calendarData.liked}}</text>
-    </view>
-    <view class="icon-flap">
-      <wxc-icon size="60" color="red" type="{{calendarData.isCollected?'heart-active':'heart'}}" bindtap='doCollection'></wxc-icon>
-    </view>
-    <view class="icon-flap">
-      <wxc-icon size="60" color="#fed72a" type="comment" open-type="getUserInfo" bindgetuserinfo="getUserInfo" bindtap='viewComments'></wxc-icon>
-      <text>{{calendarData.commented}}</text>
-    </view>
-    <view class="icon-flap">
-      <wxc-icon size="60" color="#fed72a" type="share"></wxc-icon>
-    </view>
-  </view>
-
-  <view class="userinfo">
-  <wxc-icon size="100" color="#fed72a" type="group" wx:if="{{!user.hasUserInfo && user.canIUse}}" bindtap="getUserInfo" bindgetuserinfo="getUserInfo"></wxc-icon>
-    <block wx:else>
-      <image bindtap="viewMyFavorite" class="userinfo-avatar" src="{{user.info.avatarUrl}}" mode="cover"></image>
-    </block>
-    
-  </view>
-</view>
 
   </swiper-item>
-  </block>
 </swiper>

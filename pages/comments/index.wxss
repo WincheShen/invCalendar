@@ -22,12 +22,9 @@ image {
 
 .title_box {
   display: flex;
-  height: 70rpx;
+  height: 80rpx;
   justify-content: center;
   margin-top: 20rpx;
-  /* position: fixed;
-  bottom: 0;
-  width: 100%; */
 }
 
 .comment_list_box {
@@ -155,9 +152,6 @@ image {
   padding-bottom: 2rpx;
 }
 
-.views_image {
-}
-
 .views_image image {
   width: 35rpx;
   height: 35rpx;
@@ -204,7 +198,7 @@ image {
 .title_text {
   display: flex;
   color: #3f9f94;
-  font-size: 38rpx;
+  font-size: 44rpx;
   line-height: 60rpx;
   margin-left: 10rpx;
 }
@@ -277,14 +271,22 @@ image {
   width: 100%;
 }
 
-/*  底部悬浮导航  */
-
 .fix_nav_wp {
-  height: 110rpx;
+  height: 70rpx;
   position: fixed;
   left: 0;
   bottom: 0;
   background: #fff;
   border-top: 1rpx solid #e5e5e5;
   z-index: 10;
+}
+
+.cmt_box {
+  height: 80rpx;
+}
+
+.cmt_box input {
+  padding-left: 10rpx;
+  font-size: 44rpx;
+  height: 99%;
 }

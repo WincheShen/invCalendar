@@ -42,5 +42,6 @@ module.exports = extend({
   extend,
   post,
   get,
-  user: require('./user.js')
+  user: require('./user.js'),
+  apiBase: 'https://contest.lujs.cn/bs-opcam'
 }, utils)

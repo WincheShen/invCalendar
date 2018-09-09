@@ -34,20 +34,18 @@
   </view>
 </view>
 
-<!-- <view class="title_box">
-  <view class="title_display">
-    <view class="title_text">
-      <text>发表评论</text>
+<view class='flex' wx:if="{{!isShowPop}}">
+  <view class='fix_nav_wp title_box' style='width:100%;' bindtap='toggleCommentPopup'>
+    <view class="title_display">
+      <view class="title_text">
+        <wxc-icon size="40" type="edit" style="margin-left:2rpx;margin-right:2rpx;" color="#3f9f94"></wxc-icon>
+        <text>发表评论</text>
+      </view>
     </view>
   </view>
-</view> -->
-
-<view class='flex' wx:if="{{!isShowPop}}">
-  <view class='fix_nav_wp'>
-    <input placeholder="畅所欲言" bindfocus="writeComment"/>
-  </view>
 </view>
-
-<popup isShowPop="{{isShowPop}}">
-  <input placeholder="畅所欲言" />
+<popup wx:else isShowPop bindcancel="toggleCommentPopup" bindconfirm="submitComment">
+  <view class='cmt_box'>
+    <input placeholder="我也要留言..." bindinput='inputComents' focus/>
+  </view>
 </popup>
