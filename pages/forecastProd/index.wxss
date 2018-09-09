@@ -102,3 +102,55 @@ background: #b3d4db
   text-align: right;
 }
 
+.page {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(236, 230, 230);
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  border-style: solid;
+  border-color: rgba(26, 14, 22, 0.144);
+  border-top-width: 0.5rpx;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  height: 60rpx;
+}
+
+.detail {
+  font-weight: bold;
+  width: 75%;
+  padding-left: 10rpx;
+  display: flex;
+  flex-direction: row;
+  padding-top: 10rpx;
+}
+
+.title {
+  width: 65%;
+  padding-right: 20rpx;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.onlineDate {
+  width: 35%;
+  padding-right: 30rpx;
+}
+
+.query {
+  border-style: solid;
+  border-color: rgba(26, 14, 22, 0.144);
+  border-width: 2rpx;
+  border-radius: 10rpx;
+  position: absolute;
+  left: 10rpx;
+  right: 10rpx;
+  bottom: 20rpx;
+  height: 50rpx;
+}
