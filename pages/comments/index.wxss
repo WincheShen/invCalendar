@@ -127,6 +127,7 @@ image {
 
 .no_comment {
   color: #dadada;
+  padding: 25rpx;
 }
 
 .title_display {
