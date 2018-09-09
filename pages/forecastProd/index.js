@@ -50,16 +50,32 @@ exports.default = Page({
       ready4Sell: res.data.data.ready4Sell
     }));
   },
-  notice: function(event) {
+  notice: function (event) {
+    var page = this;
+    var buttonId = event.target.id;
+    wx.getSetting({
+      success: function (res) {
+        if (res.authSetting['scope.userInfo']) {
+          //已经授权，可以直接保存产品预定通知
+          page.saveNotice(buttonId);
+        } else {
+          //未授权，需要先授权再保存
+          page.authUser(buttonId);
+        }
+      }
+    })
+  },
+  authUser: function (id) {
+    console.log("授权信息页")
     var page = this;
     wx.showModal({
       title: '微信授权',
       content: '申请获得你的公开信息(呢称、头像等)',
       cancelText: '拒绝',
       confirmText: '允许',
-      success: function(res) {
+      success: function (res) {
         if (res.confirm) {
-          page.authCallback(event.target.id);
+          page.saveNotice(id);
           console.log('用户点击确定');
         } else if (res.cancel) {
           console.log('用户点击取消')
@@ -67,32 +83,21 @@ exports.default = Page({
       }
     })
   },
-  authCallback: function(id) {
+  saveNotice: function (id) {
+    console.log("保存用户订阅的产品上架前通知");
     var page = this;
-    // 查看是否授权
-    wx.getSetting({
-      success: function(res) {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-          wx.getUserInfo({
-            success: function(res) {
-              console.log("发送用户订阅的产品上架前通知");
-              console.log(res.userInfo);
-              console.log(res.encryptedData);
-              page.saveNotice(id);
-            }
-          })
-        }
+    wx.getUserInfo({
+      success: function (res) {
+        console.log(res.userInfo);
+        console.log(res.encryptedData);
+        page.saveNoticeCallback(id);
       }
     })
-  },
-  saveNotice: function(id) {
-    console.log("保存用户订阅的产品上架前通知");
     this.saveNoticeCallback(id);
   },
-  saveNoticeCallback: function(id) {
+  saveNoticeCallback: function (id) {
     wx.showToast({
-      title: '已订阅通知',
+      title: '已成功订阅通知',
       icon: 'success',
       duration: 2000
     })
@@ -101,7 +106,7 @@ exports.default = Page({
     });
     console.log("id:" + id);
   },
-  queryProduct: function(productTitle) {
+  queryProduct: function (productTitle) {
     console.log("查询产品");
     this.onLoad();
   }
