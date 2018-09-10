@@ -64,10 +64,11 @@ Page({
         if (d.comments && d.comments.length) {
           const entries = d.comments.map(({
             author,
-            comment
+            comment,
+            avatarUrl
           }, i) => ({
             id: i,
-            avatarUrl: user.info.avatarUrl,
+            avatarUrl: avatarUrl,
             showNickName: author,
             content: comment
           }))
@@ -99,7 +100,8 @@ Page({
         calendarId: this.data.currentDate,
         comment: this.data.comments,
         userId: 'chenyan789',
-        userName: user.info.nickName
+        userName: user.info.nickName,
+        avatarUrl: user.info.avatarUrl
       }).then(({
         success,
         data

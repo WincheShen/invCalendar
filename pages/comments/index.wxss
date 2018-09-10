@@ -55,16 +55,8 @@ image {
   border-radius: 50%;
 }
 
-.avatar_button {
-  background: none;
-  border: none;
-  padding: 1rpx 5rpx 1rpx 1rpx;
-  margin: 1rpx 5rpx 0rpx 5rpx;
-}
-
-.avatar_button::after {
-  border: none;
-  outline: none;
+.no_avatar image {
+  border: solid 0.5rpx #dadada;
 }
 
 .comment_total_box {
