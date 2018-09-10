@@ -58,7 +58,6 @@ exports.default = Page({
     wx.stopPullDownRefresh()
   },
   onLoad: function() {
-    user.load(this.updateUserInfo);
     console.log(user.hasUserInfo)
     console.log(user.canIUse)
     console.log(user.info.nickName)
@@ -66,6 +65,9 @@ exports.default = Page({
       this.dateSetting(new Date());
     }
     this.dataLoad(new Date());
+  },
+  onShow() {
+    user.load(this.updateUserInfo);
   },
   getUserInfo: user.getUserInfo,
   updateUserInfo(userInfo) {
