@@ -31,8 +31,9 @@
       <view border="{{true}}" class="homePanel">
         <view class="content" style="white-space:pre-wrap">
           {{calendarData.detail.intro}}
-          <image src="../image/linkto.png" class="linkto"></image>
+          
         </view>
+        <image src="../image/linkto.png" class="linkto" bindtap="openSourceLink"></image>
       </view>
       <view class="productForecastList">
         <view class="productForecast" bindtap='viewForecast' wx:if="{{calendarData.ready4Sell!==null && calendarData.ready4Sell.length!=0}}">

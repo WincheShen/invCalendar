@@ -182,5 +182,12 @@ exports.default = Page({
       title: this.data.calendarData.lunarDate,
       path: '/home/index?curDate=' + formatDate(this.data.curDate),
     }
+  },
+  openSourceLink: function(){
+    wx.showToast({
+      title: '个人版无法打开链接',
+      icon: 'none',
+      duration: 1000
+    })
   }
 });
