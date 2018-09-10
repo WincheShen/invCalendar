@@ -92,3 +92,19 @@
   margin-top: -70rpx;
   border-radius: 50%;
 }
+.gotoLink{
+  
+}
+
+.linkto{
+  /* clear: both; */
+  /* display: block; */
+  margin: auto;
+  height:40rpx;
+  width: 40rpx;
+  position: relative;
+  bottom: 40rpx;
+  right: 40rpx;
+  
+  align-self: right;
+}

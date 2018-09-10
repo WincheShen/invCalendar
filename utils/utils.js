@@ -40,19 +40,9 @@ function formatNumber(n) {
   return n[1] ? n : '0' + n
 }
 
-function daysJian(date) {
-  date.setDate(date.getDate() - 1); //设置天数 -1 天
-}
-
-function daysJia(date) {
-  date.setDate(date.getDate() + 1); //设置天数 +1 天
-}
-
 
 module.exports = {
   formatDate: formatDate,
   relativeDate: relativeDate,
-  daysJian: daysJian,
-  daysJia: daysJia,
   formatDate2Array: formatDate2Array
 }

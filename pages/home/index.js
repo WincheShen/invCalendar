@@ -41,16 +41,20 @@ exports.default = Page({
     wx.stopPullDownRefresh()
   },
   onLoad: function(options) {
-    user.load(this.updateUserInfo);
     var curDate = options.curDate;
     if (curDate == null || curDate === undefined) {
       curDate = new Date();
+    }else{
+      curDate = new Date(curDate);
     }
     if (this.data.dateList === null || this.data.dateList === undefined) {
       this.dateSetting(curDate);
     }
     
     this.dataLoad(curDate);
+  },
+  onShow() {
+    user.load(this.updateUserInfo);
   },
   getUserInfo: user.getUserInfo,
   updateUserInfo(userInfo) {
@@ -79,8 +83,12 @@ exports.default = Page({
     }
   },
   viewForecast: function() {
+    var prodListStr = "";
+    if (this.data.calendarData.ready4Sell != null && this.data.calendarData.ready4Sell!= undefined){
+      prodListStr = this.data.calendarData.ready4Sell.join('|');
+    }
     wx.navigateTo({
-      url: '../forecastProd/index',
+      url: '../forecastProd/index?productList=' + this.data.calendarData.ready4Sell
     })
   },
   viewMyFavorite: function() {
@@ -99,16 +107,14 @@ exports.default = Page({
     this.setData({
       dateArray: formatDate2Array(currentDate)
     })
-    console.log(formatDate(currentDate));
     post('https://contest.lujs.cn/bs-opcam/home/getInvestmentInfoByDate', {
-    // post('https://dsn.apizza.net/mock/21031c3f5ec7087ab6306752ca3bee11/home/getInvestmentInfoByDate', {
       date: formatDate(currentDate),
       userId: this.data.user==undefined?null:user.info.nickName
     }).then(
       function(data) {
-        // console.log(data.data.data);
-        console.log(data);
-        // calendarData = data.data.data;
+        var calendarData = data.data.data;
+        calendarData.isLiked = calendarData.isLiked === 'true' ? true : false;
+        calendarData.isCollected = calendarData.isCollected === 'true' ? true : false;
         that.setData({
           calendarData: data.data.data,
         })
@@ -135,22 +141,16 @@ exports.default = Page({
     post('https://contest.lujs.cn/bs-opcam/interaction/iLike', {
       calendarId: this.data.calendarData.calendarId,
       userId: this.data.user == undefined ? null : this.data.user.info.nickName,
-      isLiked: this.data.calendarData.isLiked === "false"? "true": "false"
+      isLiked: !this.data.calendarData.isLiked
     }).then(
       function(data) {
         // console.log(data.data.data);
         console.log(data);
         var calendar = that.data.calendarData;
-        var addNum = -1;
-        if (calendar.isLiked === "false") {
-          calendar.isLiked = "true";
-          addNum = 1;
-        } else {
-          calendar.isLiked = "false";
-        }
-        var num = parseInt(calendar.liked) + addNum;
+        var addNum = calendar.isLiked?-1:1;
+        var num = calendar.liked;
         calendar.isLiked = !calendar.isLiked;
-        calendar.liked = num;
+        calendar.liked = num+addNum;
         that.setData({
           calendarData: calendar,
         })
@@ -163,23 +163,24 @@ exports.default = Page({
     post('https://contest.lujs.cn/bs-opcam/interaction/add2collection', {
       calendarId: this.data.calendarData.calendarId,
       userId: this.data.user == undefined ? null : this.data.user.info.nickName,
-      isCollect: this.data.calendarData.isCollected==="false"?"true":"false"
+      isCollect: !this.data.calendarData.isCollected
     }).then(
       function(data) {
-        // console.log(data.data.data);
-        // console.log(data);
+
         var calendar = that.data.calendarData;
-        if (calendar.isCollected==="false"){
-          calendar.isCollected = "true";
-        }else{
-          calendar.isCollected = "false";
-        }
-         
+        calendar.isCollected = !calendar.isCollected;
+
         // calendarData = data.data.data;
         that.setData({
           calendarData: calendar,
         })
       }
     );
+  },
+  doShareAppMessage: function(){
+    return {
+      title: this.data.calendarData.lunarDate,
+      path: '/home/index?curDate=' + formatDate(this.data.curDate),
+    }
   }
 });

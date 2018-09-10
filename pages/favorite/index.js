@@ -1,13 +1,35 @@
 'use strict';
 
+const {
+  post,
+  user
+} = require('../../utils/index.js')
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
 exports.default = Page({
   data: {
-    '__code__': {
-      readme: ''
-    }
+    favoriteList: [],
+    disabled: false,
+  },
+  onLoad: function() {
+    // console.log(this.data.favoriteList);
+    // console.log(user.info.nickName);
+    var page = this;
+    post('https://contest.lujs.cn/bs-opcam/interaction/queryCollectedList', {
+        userId: user.info.nickName
+      })
+      .then(
+        res => page.setData({favoriteList: res.data.data.collections})
+      );
+  },
+  getUserInfo: user.getUserInfo,
+  viewDate: function(event) {
+    console.log(event.target.dataset.date);
+    wx.navigateTo({
+      url: '../home/index?curDate=' + event.target.dataset.date,
+    })
   }
-});
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImluZGV4Lnd4cCJdLCJuYW1lcyI6WyJkYXRhIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFLRUEsUUFBTTtBQUFBO0FBQUE7QUFBQTtBQUFBIiwiZmlsZSI6ImluZGV4Lnd4cCIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBkZWZhdWx0IHtcbiAgY29uZmlnOiB7XG4gICAgbmF2aWdhdGlvbkJhclRpdGxlVGV4dDogJ+S4quS6uuaUtuiXjycsXG4gICAgdXNpbmdDb21wb25lbnRzOiB7fVxuICB9LFxuICBkYXRhOiB7fVxufSJdfQ==
+})

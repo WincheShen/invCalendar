@@ -31,10 +31,11 @@
       <view border="{{true}}" class="homePanel">
         <view class="content" style="white-space:pre-wrap">
           {{calendarData.detail.intro}}
+          <image src="../image/linkto.png" class="linkto"></image>
         </view>
       </view>
       <view class="productForecastList">
-        <view class="productForecast" bindtap='viewForecast' wx:if="{{calendarData.ready4Sell!==null && calendarData.ready4Sell.length>0}}">
+        <view class="productForecast" bindtap='viewForecast' wx:if="{{calendarData.ready4Sell!==null && calendarData.ready4Sell.length!=0}}">
           上新预告:
           <text>{{calendarData.ready4Sell[0]}}</text>
         </view>
@@ -42,12 +43,12 @@
       <view class="flex-icon-flap" style="flex-direction:row;width:100%">
 
         <view class="icon-flap">
-          <wxc-icon size="60" type="{{calendarData.isLiked=='true'?'star-active':'star'}}" color="#fed72a" bindtap='doLike'></wxc-icon>
+          <wxc-icon size="60" type="{{calendarData.isLiked?'star-active':'star'}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"color="#fed72a" bindtap='doLike'></wxc-icon>
           <text>{{calendarData.liked}}</text>
         </view>
 
         <view class="icon-flap">
-          <wxc-icon size="60" color="red" type="{{calendarData.isCollected=='true'?'heart-active':'heart'}}" bindtap='doCollection'></wxc-icon>
+          <wxc-icon size="60" color="red" type="{{calendarData.isCollected?'heart-active':'heart'}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" bindtap='doCollection'></wxc-icon>
         </view>
 
         <view class="icon-flap" bindtap='viewComments'>
@@ -55,7 +56,7 @@
           <text>{{calendarData.commented}}</text>
         </view>
         <view class="icon-flap">
-          <wxc-icon size="60" color="#fed72a" type="share"></wxc-icon>
+          <wxc-icon size="60" color="#fed72a" type="share" open-type='share' bindtap='doShareAppMessage'></wxc-icon>
         </view>
       </view>
 

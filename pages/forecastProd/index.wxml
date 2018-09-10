@@ -1,11 +1,11 @@
 <view class="page">
-  <view wx:for="{{ready4Sell}}" class='item'>
+  <view wx:for="{{ready4Sell}}" wx:for-index="idx" wx:key="{{idx}}" class='item'>
     <view class='detail'>
       <view class='title'>{{item}}</view>
       <view class='onlineDate'>9月10日0点</view>
     </view>
-    <view>
-      <button id="111" bindtap="notice" size='mini' type='primary' disabled="{{disabled}}">通知我</button>
+    <view data-id="111" bindtap='noticeMe'>
+      <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" size='mini' type='primary' disabled="{{disabled}}">通知我</button>
     </view>
   </view>
   <view class="query">

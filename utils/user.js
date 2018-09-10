@@ -28,7 +28,7 @@ var store = {},
   loadFnKey = 'loaded'
 
 user.load = function(loaded, registerOnly) {
-  loaded && !store[loadFnKey] && (store[loadFnKey] = loaded)
+  loaded && (store[loadFnKey] = loaded)
   if (registerOnly) {
     return;
   }
