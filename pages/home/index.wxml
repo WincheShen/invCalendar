@@ -33,19 +33,21 @@
           {{calendarData.detail.intro}}
         </view>
       </view>
-      <view class="productForecast" bindtap='viewForecast' wx:if="{{calendarData.ready4Sell!==null && calendarData.ready4Sell.length>0}}">
-        上新预告:
-        <text>{{calendarData.ready4Sell[0]}}</text>
+      <view class="productForecastList">
+        <view class="productForecast" bindtap='viewForecast' wx:if="{{calendarData.ready4Sell!==null && calendarData.ready4Sell.length>0}}">
+          上新预告:
+          <text>{{calendarData.ready4Sell[0]}}</text>
+        </view>
       </view>
       <view class="flex-icon-flap" style="flex-direction:row;width:100%">
 
         <view class="icon-flap">
-          <wxc-icon size="60" type="{{calendarData.isLiked?'star-active':'star'}}" color="#fed72a" bindtap='doLike'></wxc-icon>
+          <wxc-icon size="60" type="{{calendarData.isLiked=='true'?'star-active':'star'}}" color="#fed72a" bindtap='doLike'></wxc-icon>
           <text>{{calendarData.liked}}</text>
         </view>
 
         <view class="icon-flap">
-          <wxc-icon size="60" color="red" type="{{calendarData.isCollected?'heart-active':'heart'}}" bindtap='doCollection'></wxc-icon>
+          <wxc-icon size="60" color="red" type="{{calendarData.isCollected=='true'?'heart-active':'heart'}}" bindtap='doCollection'></wxc-icon>
         </view>
 
         <view class="icon-flap" bindtap='viewComments'>

@@ -98,7 +98,7 @@ Page({
     post(`${apiBase}/interaction/userComment`, {
         calendarId: this.data.currentDate,
         comment: this.data.comments,
-        userId: 'chenyan789',
+      userId: user.info.nickName,
         userName: user.info.nickName
       }).then(({
         success,
