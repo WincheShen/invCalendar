@@ -28,11 +28,11 @@ var store = {},
   loadFnKey = 'loaded'
 
 user.load = function(loaded, registerOnly) {
-  loaded && !store[loadFnKey] && (store[loadFnKey] = loaded)
+  loaded && (store[loadFnKey] = loaded)
   if (registerOnly) {
     return;
   }
-  
+
   if (user.hasUserInfo) {
     loaded && loaded(user.info)
   } else if (!user.hasUserInfo) {
@@ -48,8 +48,10 @@ user.load = function(loaded, registerOnly) {
 
 // bind button open-type.getUserInfo
 user.getUserInfo = function(e) {
-  initUserInfo(e.detail.userInfo)
-  store[loadFnKey] && store[loadFnKey](e.detail.userInfo)
+  if (e.detail.userInfo) {
+    initUserInfo(e.detail.userInfo)
+    store[loadFnKey] && store[loadFnKey](e.detail.userInfo)
+  }
 }
 
 module.exports = user

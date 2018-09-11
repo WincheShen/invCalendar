@@ -1,1 +1,2 @@
-<view class="icon icon--{{type}}" style="font-size:{{size}}rpx; color:{{color}}"></view>
+<view wx:if="{{!openType}}" class="icon icon--{{type}}" style="font-size:{{size}}rpx; color:{{color}}"></view>
+<button wx:else class="icon icon--{{type}}" style="font-size:{{size}}rpx; color:{{color}}" open-type="{{openType}}" bindgetuserinfo="getUserInfo"></button>
