@@ -13,9 +13,10 @@
 
 .content {
   margin: auto;
-  padding-top: 100rpx;
+  padding-top: 40rpx;
   padding-left: 50rpx;
   padding-right: 50rpx;
+  padding-bottom: 40rpx;
   border: 1rpx;
   width: 80%;
   height: 400rpx;

@@ -39,6 +39,7 @@
         <view class="productForecast" bindtap='viewForecast' wx:if="{{calendarData.ready4Sell!==null && calendarData.ready4Sell.length!=0}}">
           上新预告:
           <text>{{calendarData.ready4Sell[0]}}</text>
+          <wxc-icon size="60" type="more" open-type="getUserInfo" bindgetuserinfo="getUserInfo"></wxc-icon>
         </view>
       </view>
       <view class="flex-icon-flap" style="flex-direction:row;width:100%">
