@@ -2,11 +2,9 @@
   <view wx:if="{{comment_data.length > 0}}">
 
     <view class="comment_list" wx:for="{{comment_data}}" wx:key="{{item.id}}">
-      <button class="avatar_button" open-type="getUserInfo" lang="zh_CN" data-user_id='{{item.userId}}'>
-        <view class="comment_avatar">
-          <image src="{{item.avatarUrl}}" />
-        </view>
-      </button>
+      <view class="comment_avatar {{item.avatarUrl?'':'no_avatar'}}">
+        <image src="{{item.avatarUrl}}" />
+      </view>
       <!-- 评论昵称/日期/内容/赞-->
       <view class="comment_total_box">
         <!-- 父评论 -->

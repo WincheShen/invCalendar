@@ -32,7 +32,7 @@ exports.default = Page({
     dateArray: null,
     dateList: null,
     currentGesture: 0, //标识手势
-    currentid: 8,
+    currentid: 14,
     likeIcon: "star",
     calendarData: null,
     action: ''
@@ -124,7 +124,7 @@ exports.default = Page({
   dateSetting: function(curDate) {
     var dates = [];
     var j = 0;
-    for (var i = -7; i < 8; i++) {
+    for (var i = -14; i < 1; i++) {
       dates[j] = relativeDate(curDate, i);
       j++;
     }

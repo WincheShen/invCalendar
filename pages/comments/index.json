@@ -4,5 +4,5 @@
     "popup": "../../components/popup/index",
     "wxc-icon": "../../packages/@minui/wxc-icon/dist/index"
   },
-  "navigationBarTitleText": "大臣议事区"
+  "navigationBarTitleText": "御门听政"
 }
