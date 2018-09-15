@@ -5,6 +5,10 @@ const {
 } = require('../../utils/index.js')
 const pageSize = 10
 
+const calcIntervalDays = function(lDate, rDate) {
+  return parseInt(Math.abs(new Date(lDate) - new Date(rDate)) / 1000 / 60 / 60 / 24)
+}
+
 Page({
   data: {
     comment_data: [],
@@ -62,16 +66,22 @@ Page({
         })
       } else {
         if (d.comments && d.comments.length) {
-          const entries = d.comments.map(({
-            author,
-            comment,
-            avatarUrl
-          }, i) => ({
-            id: i,
-            avatarUrl: avatarUrl,
-            showNickName: author,
-            content: comment
-          }))
+          const now = new Date,
+            entries = d.comments.map(({
+              author,
+              comment,
+              avatarUrl,
+              date
+            }, i) => {
+              var days = calcIntervalDays(date, now)
+              return {
+                id: i,
+                avatarUrl: avatarUrl,
+                showNickName: author,
+                content: comment,
+                time: !days ? date : `${days}天前`
+              }
+            })
           if (this.data.appendComments) {
             this.setData({
               comment_data: this.data.comment_data.concat(entries)
@@ -96,6 +106,10 @@ Page({
     })
   },
   submitComment() {
+    if (!this.data.comments || !this.data.comments.length) {
+      this.toggleCommentPopup()
+      return
+    }
     post(`${apiBase}/interaction/userComment`, {
         calendarId: this.data.currentDate,
         comment: this.data.comments,
