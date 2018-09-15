@@ -10,7 +10,8 @@ const {
   post,
   relativeDate,
   formatDate2Array,
-  formatDate
+  formatDate,
+  apiBase,
 } = require('../../utils/index.js');
 
 const app = getApp();
@@ -44,13 +45,13 @@ exports.default = Page({
     var curDate = options.curDate;
     if (curDate == null || curDate === undefined) {
       curDate = new Date();
-    }else{
+    } else {
       curDate = new Date(curDate);
     }
     if (this.data.dateList === null || this.data.dateList === undefined) {
       this.dateSetting(curDate);
     }
-    
+
     this.dataLoad(curDate);
   },
   onShow() {
@@ -59,7 +60,7 @@ exports.default = Page({
   getUserInfo: user.getUserInfo,
   updateUserInfo(userInfo) {
     this.setData({
-      user:user
+      user: user
     });
     this.runAction()
   },
@@ -84,7 +85,7 @@ exports.default = Page({
   },
   viewForecast: function() {
     var prodListStr = "";
-    if (this.data.calendarData.ready4Sell != null && this.data.calendarData.ready4Sell!= undefined){
+    if (this.data.calendarData.ready4Sell != null && this.data.calendarData.ready4Sell != undefined) {
       prodListStr = this.data.calendarData.ready4Sell.join('|');
     }
     wx.navigateTo({
@@ -107,9 +108,9 @@ exports.default = Page({
     this.setData({
       dateArray: formatDate2Array(currentDate)
     })
-    post('https://contest.lujs.cn/bs-opcam/home/getInvestmentInfoByDate', {
+    post(`${apiBase}/home/getInvestmentInfoByDate`, {
       date: formatDate(currentDate),
-      userId: this.data.user==undefined?null:user.info.nickName
+      userId: this.data.user == undefined ? null : user.info.nickName
     }).then(
       function(data) {
         var calendarData = data.data.data;
@@ -138,7 +139,7 @@ exports.default = Page({
   },
   doLike: function() {
     var that = this;
-    post('https://contest.lujs.cn/bs-opcam/interaction/iLike', {
+    post(`${apiBase}/interaction/iLike`, {
       calendarId: this.data.calendarData.calendarId,
       userId: this.data.user == undefined ? null : this.data.user.info.nickName,
       isLiked: !this.data.calendarData.isLiked
@@ -147,10 +148,10 @@ exports.default = Page({
         // console.log(data.data.data);
         console.log(data);
         var calendar = that.data.calendarData;
-        var addNum = calendar.isLiked?-1:1;
+        var addNum = calendar.isLiked ? -1 : 1;
         var num = calendar.liked;
         calendar.isLiked = !calendar.isLiked;
-        calendar.liked = num+addNum;
+        calendar.liked = num + addNum;
         that.setData({
           calendarData: calendar,
         })
@@ -160,7 +161,7 @@ exports.default = Page({
   },
   doCollection: function() {
     var that = this;
-    post('https://contest.lujs.cn/bs-opcam/interaction/add2collection', {
+    post(`${apiBase}/interaction/add2collection`, {
       calendarId: this.data.calendarData.calendarId,
       userId: this.data.user == undefined ? null : this.data.user.info.nickName,
       isCollect: !this.data.calendarData.isCollected
@@ -177,13 +178,13 @@ exports.default = Page({
       }
     );
   },
-  doShareAppMessage: function(){
+  doShareAppMessage: function() {
     return {
       title: this.data.calendarData.lunarDate,
       path: '/home/index?curDate=' + formatDate(this.data.curDate),
     }
   },
-  openSourceLink: function(){
+  openSourceLink: function() {
     wx.showToast({
       title: '个人版无法打开链接',
       icon: 'none',

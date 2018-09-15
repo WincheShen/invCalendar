@@ -45,12 +45,12 @@
       <view class="flex-icon-flap" style="flex-direction:row;width:100%">
 
         <view class="icon-flap">
-          <wxc-icon size="60" type="{{calendarData.isLiked?'star-active':'star'}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"color="#fed72a" bindtap='doLike'></wxc-icon>
+          <wxc-icon size="60" color="red" type="{{calendarData.isLiked?'heart-active':'heart'}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"bindtap='doLike'></wxc-icon>
           <text>{{calendarData.liked}}</text>
         </view>
 
         <view class="icon-flap">
-          <wxc-icon size="60" color="red" type="{{calendarData.isCollected?'heart-active':'heart'}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" bindtap='doCollection'></wxc-icon>
+          <wxc-icon size="60" color="#fed72a" type="{{calendarData.isCollected?'star-active':'star'}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" bindtap='doCollection'></wxc-icon>
         </view>
 
         <view class="icon-flap" bindtap='viewComments'>

@@ -17,7 +17,7 @@ Page({
   },
   onLoad: function(options) {
     var prodList = options.productList;
-    if(prodList != null && prodList != undefined && prodList.length>0){
+    if (prodList != null && prodList != undefined && prodList.length > 0) {
       prodList = prodList.split(',');
     }
     // console.log(prodList + prodList.length);
@@ -39,6 +39,9 @@ Page({
     this.setData({
       currId: e.currentTarget.dataset.id
     })
+  },
+  onPullDownRefresh() {
+    wx.stopPullDownRefresh()
   },
   saveNoticeCallback() {
     if (user.hasUserInfo) {

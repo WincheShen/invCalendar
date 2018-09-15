@@ -2,7 +2,8 @@
 
 const {
   post,
-  user
+  user,
+  apiBase,
 } = require('../../utils/index.js')
 
 Object.defineProperty(exports, "__esModule", {
@@ -18,12 +19,17 @@ exports.default = Page({
     // console.log(this.data.favoriteList);
     // console.log(user.info.nickName);
     var page = this;
-    post('https://contest.lujs.cn/bs-opcam/interaction/queryCollectedList', {
+    post(`${apiBase}/interaction/queryCollectedList`, {
         userId: user.info.nickName
       })
       .then(
-        res => page.setData({favoriteList: res.data.data.collections})
+        res => page.setData({
+          favoriteList: res.data.data.collections
+        })
       );
+  },
+  onPullDownRefresh() {
+    wx.stopPullDownRefresh()
   },
   getUserInfo: user.getUserInfo,
   viewDate: function(event) {
