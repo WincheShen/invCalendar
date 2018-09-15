@@ -9,7 +9,8 @@ const {
   user,
   post,
   relativeDate,
-  formatDate2Array
+  formatDate2Array,
+  formatDate
 } = require('../../utils/index.js');
 
 const app = getApp();
@@ -26,45 +27,31 @@ exports.default = Page({
   data: {
     indicator: false,
     autoplay: false,
-    user: {},
+    curDate: null,
+    user: null,
     dateArray: null,
     dateList: null,
     currentGesture: 0, //标识手势
-    currentid: 8,
+    currentid: 14,
     likeIcon: "star",
-    calendarData: {
-      calendarId: "111111",
-      bgImg: "http://",
-      lunarDate: "8月十五",
-      lunarIntro: "中秋",
-      suitFor: "投资",
-      unsuitFor: "取现",
-      liked: "50",
-      isLiked: "true",
-      isCollected: "true",
-      commented: "100",
-      ready4Sell: [
-        "安E",
-        "财富计划"
-      ],
-      detail: {
-        "intro": "世人投资，第一要有度，第二要有心，第三要有恒。有度，方能知进退；有心，能辨利与害；有恒，则积长久之财。\n\n\n 陆金所：投资谏言",
-        "hyperLink": "http://"
-      }
-    },
+    calendarData: null,
     action: ''
   },
   onPullDownRefresh() {
     wx.stopPullDownRefresh()
   },
-  onLoad: function() {
-    console.log(user.hasUserInfo)
-    console.log(user.canIUse)
-    console.log(user.info.nickName)
-    if (this.data.dateList === null || this.data.dateList === undefined) {
-      this.dateSetting(new Date());
+  onLoad: function(options) {
+    var curDate = options.curDate;
+    if (curDate == null || curDate === undefined) {
+      curDate = new Date();
+    }else{
+      curDate = new Date(curDate);
     }
-    this.dataLoad(new Date());
+    if (this.data.dateList === null || this.data.dateList === undefined) {
+      this.dateSetting(curDate);
+    }
+    
+    this.dataLoad(curDate);
   },
   onShow() {
     user.load(this.updateUserInfo);
@@ -72,8 +59,8 @@ exports.default = Page({
   getUserInfo: user.getUserInfo,
   updateUserInfo(userInfo) {
     this.setData({
-      user: user,
-    })
+      user:user
+    });
     this.runAction()
   },
   runAction() {
@@ -96,8 +83,12 @@ exports.default = Page({
     }
   },
   viewForecast: function() {
+    var prodListStr = "";
+    if (this.data.calendarData.ready4Sell != null && this.data.calendarData.ready4Sell!= undefined){
+      prodListStr = this.data.calendarData.ready4Sell.join('|');
+    }
     wx.navigateTo({
-      url: '../forecastProd/index',
+      url: '../forecastProd/index?productList=' + this.data.calendarData.ready4Sell
     })
   },
   viewMyFavorite: function() {
@@ -116,15 +107,14 @@ exports.default = Page({
     this.setData({
       dateArray: formatDate2Array(currentDate)
     })
-    // post('https://contest.lujs.cn/bs-opcam/home/getInvestmentInfoByDate', {
-    post('https://dsn.apizza.net/mock/21031c3f5ec7087ab6306752ca3bee11/home/getInvestmentInfoByDate', {
-      date: currentDate,
-      userId: 'chenyan789'
+    post('https://contest.lujs.cn/bs-opcam/home/getInvestmentInfoByDate', {
+      date: formatDate(currentDate),
+      userId: this.data.user==undefined?null:user.info.nickName
     }).then(
       function(data) {
-        // console.log(data.data.data);
-        console.log(data);
-        // calendarData = data.data.data;
+        var calendarData = data.data.data;
+        calendarData.isLiked = calendarData.isLiked === 'true' ? true : false;
+        calendarData.isCollected = calendarData.isCollected === 'true' ? true : false;
         that.setData({
           calendarData: data.data.data,
         })
@@ -134,11 +124,12 @@ exports.default = Page({
   dateSetting: function(curDate) {
     var dates = [];
     var j = 0;
-    for (var i = -7; i < 8; i++) {
+    for (var i = -14; i < 1; i++) {
       dates[j] = relativeDate(curDate, i);
       j++;
     }
     this.setData({
+      curDate: curDate,
       dateList: dates
     })
   },
@@ -147,20 +138,19 @@ exports.default = Page({
   },
   doLike: function() {
     var that = this;
-    post('https://dsn.apizza.net/mock/21031c3f5ec7087ab6306752ca3bee11/interaction/iLike', {
+    post('https://contest.lujs.cn/bs-opcam/interaction/iLike', {
       calendarId: this.data.calendarData.calendarId,
-      userId: 'chenyan789',
+      userId: this.data.user == undefined ? null : this.data.user.info.nickName,
       isLiked: !this.data.calendarData.isLiked
     }).then(
       function(data) {
         // console.log(data.data.data);
         console.log(data);
         var calendar = that.data.calendarData;
-        var addNum = calendar.isLiked ? -1 : 1;
-        var num = parseInt(calendar.liked) + addNum;
+        var addNum = calendar.isLiked?-1:1;
+        var num = calendar.liked;
         calendar.isLiked = !calendar.isLiked;
-        calendar.liked = num;
-        console.log(that.data.calendarData.isLiked);
+        calendar.liked = num+addNum;
         that.setData({
           calendarData: calendar,
         })
@@ -170,21 +160,34 @@ exports.default = Page({
   },
   doCollection: function() {
     var that = this;
-    post('https://dsn.apizza.net/mock/21031c3f5ec7087ab6306752ca3bee11/interaction/add2collection', {
+    post('https://contest.lujs.cn/bs-opcam/interaction/add2collection', {
       calendarId: this.data.calendarData.calendarId,
-      userId: 'chenyan789',
+      userId: this.data.user == undefined ? null : this.data.user.info.nickName,
       isCollect: !this.data.calendarData.isCollected
     }).then(
       function(data) {
-        // console.log(data.data.data);
-        console.log(data);
+
         var calendar = that.data.calendarData;
         calendar.isCollected = !calendar.isCollected;
+
         // calendarData = data.data.data;
         that.setData({
           calendarData: calendar,
         })
       }
     );
+  },
+  doShareAppMessage: function(){
+    return {
+      title: this.data.calendarData.lunarDate,
+      path: '/home/index?curDate=' + formatDate(this.data.curDate),
+    }
+  },
+  openSourceLink: function(){
+    wx.showToast({
+      title: '个人版无法打开链接',
+      icon: 'none',
+      duration: 1000
+    })
   }
 });

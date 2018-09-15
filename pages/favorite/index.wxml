@@ -1,5 +1,11 @@
-<view>
-    <!-- wxp template -->
-    <view>Favorite Page</view>
-
+<view class="page">
+  <view wx:for="{{favoriteList}}" wx:for-index="idx" wx:key="{{idx}}" class='item'>
+    <view class='detail'>
+      <view class='title'>{{item.subject}}</view>
+      <view class='onlineDate'>{{item.date}}</view>
+    </view>
+    <view data-id="111">
+      <button id="dateCtl" data-date="{{item.date}}" bindtap='viewDate' disabled="{{disabled}}" size='mini'>打开</button>
+    </view>
+  </view>
 </view>

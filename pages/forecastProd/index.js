@@ -11,46 +11,25 @@ Object.defineProperty(exports, "__esModule", {
 
 Page({
   data: {
-    ready4Sell: ['稳赢安E-财富系很长很长很长很长很长很长很长很长'],
+    ready4Sell: [''],
     disabled: false,
     currId: null,
-    // array: [{
-    //   'name': '稳赢安E-财富系列',
-    //   'date': '9月1日 0点',
-    //   'buttonName': '通知我'
-    // }, {
-    //   'name': '稳赢安E-财富系列',
-    //   'date': '9月2日 0点',
-    //   'buttonName': '通知我'
-    // }, {
-    //   'name': '稳赢安E-财富系列',
-    //   'date': '9月3日 0点',
-    //   'buttonName': '通知我'
-    // }, {
-    //   'name': '稳赢安E-财富系列',
-    //   'date': '9月4日 0点',
-    //   'buttonName': '通知我'
-    // }, {
-    //   'name': '稳赢安E-财富系列',
-    //   'date': '9月5日 0点',
-    //   'buttonName': '通知我'
-    // }, {
-    //   'name': '稳赢安E-财富系列',
-    //   'date': '9月6日 0点',
-    //   'buttonName': '通知我'
-    // }, {
-    //   'name': '稳赢安E-财富系列',
-    //   'date': '9月7日 0点',
-    //   'buttonName': '通知我'
-    // }]
   },
-  onLoad: function() {
+  onLoad: function(options) {
+    var prodList = options.productList;
+    if(prodList != null && prodList != undefined && prodList.length>0){
+      prodList = prodList.split(',');
+    }
+    // console.log(prodList + prodList.length);
     var page = this;
     console.log("加载产品预告页");
-    post('https://contest.lujs.cn/bs-opcam/home/getInvestmentInfoByDate', {})
-      .then(res => page.setData({
-        ready4Sell: res.data.data.ready4Sell
-      }));
+    this.setData({
+      ready4Sell: prodList
+    })
+    // post('https://contest.lujs.cn/bs-opcam/home/getInvestmentInfoByDate', {})
+    //   .then(res => page.setData({
+    //     ready4Sell: res.data.data.ready4Sell
+    //   }));
   },
   onShow() {
     user.load(this.saveNoticeCallback, true);
